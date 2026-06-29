@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Quiz</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: lightblue;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📝 Quiz Time!</h1>
+
+<h2 id="result"></h2>
+<h2>Score: <span id="score">0</span></h2>
+
+<div id="page1">
+    <h2>Question 1</h2>
+    <p>What is 5 + 5?</p>
+
+    <button onclick="wrong()">8</button>
+    <button onclick="correct()">10</button>
+    <button onclick="wrong()">12</button>
+</div>
+
+<div id="page2" style="display:none;">
+    <h2>Question 2</h2>
+    <p>What is the colour of the sky?</p>
+
+    <button onclick="correct()">Blue</button>
+    <button onclick="wrong()">Red</button>
+    <button onclick="wrong()">Green</button>
+</div>
+
+<div id="page3" style="display:none;">
+    <h2>Question 3</h2>
+    <p>Which language is used to make webpages?</p>
+
+    <button onclick="correct()">HTML</button>
+    <button onclick="wrong()">Python</button>
+    <button onclick="wrong()">English</button>
+</div>
+
+<button id="next" style="display:none;">Next</button>
+
+<script>
+
+const scoreText = document.getElementById("score");
+const result = document.getElementById("result");
+
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+const page3 = document.getElementById("page3");
+
+const next = document.getElementById("next");
+
+let score = 0;
+let currentPage = 1;
+
+function correct() {
+    result.innerHTML = "✅ Correct!";
+    score++;
+    scoreText.innerHTML = score;
+    next.style.display = "block";
+}
+
+function wrong() {
+    result.innerHTML = "❌ Wrong!";
+    next.style.display = "block";
+}
+
+next.onclick = function () {
+
+    result.innerHTML = "";
+    next.style.display = "none";
+
+    if (currentPage == 1) {
+        page1.style.display = "none";
+        page2.style.display = "block";
+        currentPage++;
+    }
+
+    else if (currentPage == 2) {
+        page2.style.display = "none";
+        page3.style.display = "block";
+        currentPage++;
+    }
+
+    else {
+        page3.style.display = "none";
+
+        document.body.innerHTML = `
+            <h1>🎉 Quiz Finished!</h1>
+            <h2>Your Score: ${score}/3</h2>
+            <h3>w chatgpt</h3>
+            <button onclick="location.reload()">Restart Quiz</button>
+        `;
+    }
+
+};
+
+</script>
+
+</body>
+</html>
